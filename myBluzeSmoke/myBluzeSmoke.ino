@@ -9,9 +9,9 @@
 #include <PubSubClient.h>
 #include <SoftwareSerial.h>
 
-const char* ssid = "Livebox-AC10";
-const char* password = "yvzcH9voyY3eV7PrCv";
-const char* mqtt_server = "192.168.1.45";
+const char* ssid = "Onilys";
+const char* password = "w98kgi771";
+const char* mqtt_server = "192.168.0.197";
 
 WiFiClient espClient;
 PubSubClient client(espClient);

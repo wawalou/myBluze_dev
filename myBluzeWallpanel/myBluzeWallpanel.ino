@@ -8,10 +8,13 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <SoftwareSerial.h>
+// includes necessaires au fonctionnement de l'OTA :
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 
-const char* ssid = "Livebox-AC10";
-const char* password = "yvzcH9voyY3eV7PrCv";
-const char* mqtt_server = "192.168.1.45";
+const char* ssid = "Onilys";
+const char* password = "w98kgi771";
+const char* mqtt_server = "192.168.0.197";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -113,7 +116,8 @@ void setup() {
   //Wifi
   setup_wifi();
   
-  
+  ArduinoOTA.setHostname("ESP WALLPANEL 01"); // on donne une petit nom a notre module
+  ArduinoOTA.begin(); // initialisation de l'OTA
   Serial.println("Connection done");
   
     
@@ -124,6 +128,9 @@ void setup() {
 }
 
 void loop() {
+   // a chaque iteration, on verifie si une mise a jour nous est envoyee
+  // si tel est cas, la lib ArduinoOTA se charge de gerer la suite :)
+  ArduinoOTA.handle(); 
   if (!client.connected()) {
     reconnect();
   }
