@@ -11,9 +11,9 @@
 #include <Wire.h>
 #include "BlueDot_BME280.h"
 
-const char* ssid = "Livebox-AC10";
-const char* password = "yvzcH9voyY3eV7PrCv";
-const char* mqtt_server = "192.168.1.45";
+const char* ssid = "Onilys";
+const char* password = "w98kgi771";
+const char* mqtt_server = "192.168.0.197";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -156,7 +156,6 @@ void setup() {
   //mqtt
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-  
 }
 
 void loop() {
@@ -166,7 +165,8 @@ void loop() {
   client.loop();
   
    long now = millis();
-   if(bme1Detected && (now - lastMsgbme > 60000*5))  {
+   //Serial.println(now - lastMsgbme);
+   if(bme1Detected && (now - lastMsgbme > 60000*10))  {
        lastMsgbme = now;
       sprintf(msg, "%ld", (int)bme1.readTempC());
       //Serial.println(msg);
@@ -177,6 +177,7 @@ void loop() {
       sprintf(msg, "%ld", (int)bme1.readHumidity());
       //Serial.println(msg);
       client.publish("home/humidity/door" , msg);
+      Serial.println(" BME");
       
     }
     

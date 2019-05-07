@@ -28,8 +28,10 @@ class Weathertr (threading.Thread):
 		#test d'echec
 		if self.data['status']=="fail":
 			self.city = 'Rennes'
+			self.IP='127.0.1.1'
 		else:
 			self.city = self.data['city']
+			self.IP=self.data['query']
 		self.r = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+self.city+",fr&appid="+API_Key)
 		#print("http://api.openweathermap.org/data/2.5/weather?q="+self.city+",fr&appid="+API_Key)
 		self.data=self.r.json()
@@ -49,7 +51,9 @@ class Weathertr (threading.Thread):
 
 
 
-
+#adresse IP
+	def get_IP(self):
+		return self.IP;
 #récuperer la self.data
 	def get_data(self):
 		r = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+self.city+",fr&appid="+API_Key)
